@@ -121,10 +121,7 @@ app.post('/api/compile', compileLimiter, upload.single('file'), async (req, res)
                 for (const file of projectFiles) {
                         if (!file.name || !file.content || !file.type) {
                                 continue; // Skip invalid files
-                        }
-                        
-                        // Sanitize filename
-                        const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-_]/g, '');
+                        }                                                
                         
                         if (file.type === 'image') {
                                 try {
@@ -132,7 +129,7 @@ app.post('/api/compile', compileLimiter, upload.single('file'), async (req, res)
                                         if (imageBuffer.length > 10 * 1024 * 1024) { // 10MB limit per image
                                                 continue;
                                         }
-                                        pack.entry({ name: sanitizedName }, imageBuffer);
+                                        pack.entry({ name: file.name }, imageBuffer);
                                 } catch (e) {
                                         continue; // Skip invalid base64
                                 }
@@ -140,7 +137,7 @@ app.post('/api/compile', compileLimiter, upload.single('file'), async (req, res)
                                 if (file.content.length > 1024 * 1024) { // 1MB limit per text file
                                         continue;
                                 }
-                                pack.entry({ name: sanitizedName }, file.content);
+                                pack.entry({ name: file.name }, file.content);
                         }
                 }
 
