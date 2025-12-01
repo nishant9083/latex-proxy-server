@@ -53,7 +53,7 @@ const upload = multer({
 
 // Enable CORS for frontend
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-    ? [process.env.FRONTEND_URL]
+    ? [process.env.FRONTEND_URL, 'https://latex-ai.nishantv.dev']
     : ['http://localhost:3000', 'https://latex-ai.nishantv.dev' ,process.env.FRONTEND_URL || ''];
 
 app.use(cors({
